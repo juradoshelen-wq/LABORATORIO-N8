@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subli-Tech – Personalización sin Incertidumbre</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            fredoka: ['Fredoka', 'sans-serif'],
+            nunito:  ['Nunito',  'sans-serif'],
+            inter:   ['Inter',   'sans-serif'],
+          },
+          colors: {
+            lila:    { DEFAULT: '#c4b5fd', light: '#ede9fe', dark: '#7c3aed' },
+            durazno: { DEFAULT: '#fbc8b0', light: '#fff1ec' },
+            menta:   { DEFAULT: '#a7f3d0', light: '#ecfdf5' },
+            cielo:   { DEFAULT: '#bae6fd', light: '#f0f9ff' },
+            rosa:    { DEFAULT: '#fbcfe8', light: '#fdf2f8' },
+          },
+          backdropBlur: { xs: '2px' },
+          boxShadow: {
+            glass: '0 8px 32px 0 rgba(196,181,253,0.25)',
+            card:  '0 4px 40px 0 rgba(196,181,253,0.18)',
+          },
+          animation: {
+            'float':     'float 6s ease-in-out infinite',
+            'float-slow':'float 9s ease-in-out infinite',
+            'fade-up':   'fadeUp 0.7s ease-out forwards',
+            'pulse-slow':'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite',
+          },
+          keyframes: {
+            float:   { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
+            fadeUp:  { '0%':   { opacity: 0, transform: 'translateY(28px)' },
+                       '100%': { opacity: 1, transform: 'translateY(0)' } },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base ── */
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e9d5ff 0%, #fce7f3 35%, #fde8d8 65%, #ffe4d6 100%);
+      min-height: 100vh;
+    }
+
+    /* ── Glassmorphism helpers ── */
+    .glass {
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.55);
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.68);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 6px 36px 0 rgba(196,181,253,0.22);
+    }
+    .glass-dark {
+      background: rgba(124,58,237,0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(196,181,253,0.35);
+    }
+
+    /* ── Gradient text ── */
+    .grad-text {
+      background: linear-gradient(90deg, #a78bfa 0%, #f472b6 60%, #fb923c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── CTA button ── */
+    .btn-cta {
+      background: linear-gradient(135deg, #c4b5fd 0%, #f9a8d4 100%);
+      transition: all 0.35s ease;
+      box-shadow: 0 4px 20px rgba(196,181,253,0.55);
+    }
+    .btn-cta:hover {
+      background: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
+      box-shadow: 0 8px 30px rgba(167,139,250,0.55);
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    /* ── Nav pill button ── */
+    .btn-nav {
+      background: linear-gradient(135deg, #c4b5fd 0%, #f9a8d4 100%);
+      transition: all 0.3s ease;
+    }
+    .btn-nav:hover {
+      background: linear-gradient(135deg, #a78bfa 0%, #ec4899 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(167,139,250,0.5);
+    }
+
+    /* ── Timeline connector ── */
+    .timeline-line {
+      background: linear-gradient(90deg, #c4b5fd, #f9a8d4);
+    }
+
+    /* ── Floating blobs ── */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* ── Feature card hover ── */
+    .feature-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(196,181,253,0.35);
+    }
+
+    /* ── Step circle ── */
+    .step-circle {
+      background: linear-gradient(135deg, #c4b5fd 0%, #f9a8d4 100%);
+      box-shadow: 0 4px 16px rgba(196,181,253,0.55);
+    }
+
+    /* ── Scroll animation helpers ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Product pill tags ── */
+    .product-tag {
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(196,181,253,0.5);
+    }
+
+    /* ── Illustration wrapper ── */
+    .illo-bg {
+      background: linear-gradient(135deg, rgba(196,181,253,0.3) 0%, rgba(251,207,232,0.3) 100%);
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+  <!-- ══════════════════════════════════════════
+       BLOBS DE FONDO
+  ══════════════════════════════════════════ -->
+  <div class="blob w-96 h-96 bg-purple-300 top-[-4rem] left-[-6rem]" style="animation: float 10s ease-in-out infinite;"></div>
+  <div class="blob w-72 h-72 bg-pink-200 top-32 right-[-4rem]"        style="animation: float 13s ease-in-out infinite reverse;"></div>
+  <div class="blob w-80 h-80 bg-orange-200 bottom-1/3 left-1/4"       style="animation: float 11s ease-in-out infinite 2s;"></div>
+  <div class="blob w-64 h-64 bg-violet-200 bottom-24 right-8"         style="animation: float 8s ease-in-out infinite 1s;"></div>
+
+  <!-- ══════════════════════════════════════════
+       NAVBAR FLOTANTE CON GLASSMORPHISM
+  ══════════════════════════════════════════ -->
+  <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
+    <div class="glass rounded-full px-6 py-3 flex items-center justify-between shadow-glass">
+
+      <!-- Logo -->
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-full btn-cta flex items-center justify-center shadow-md">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+              d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+          </svg>
+        </div>
+        <span class="font-fredoka font-600 text-xl tracking-wide" style="font-weight:600;">
+          <span class="grad-text">Subli</span><span class="text-purple-800">-Tech</span>
+        </span>
+      </div>
+
+      <!-- Nav links (hidden on mobile) -->
+      <ul class="hidden md:flex items-center gap-6 font-inter text-sm text-purple-700 font-medium">
+        <li><a href="#features" class="hover:text-purple-500 transition-colors">Características</a></li>
+        <li><a href="#how"      class="hover:text-purple-500 transition-colors">Cómo Funciona</a></li>
+        <li><a href="#products" class="hover:text-purple-500 transition-colors">Productos</a></li>
+      </ul>
+
+      <!-- CTA pill button -->
+      <a href="#" class="btn-nav text-white text-sm font-nunito font-semibold px-5 py-2.5 rounded-full shadow-md whitespace-nowrap">
+        Ingresar al Sistema
+      </a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════
+       HERO SECTION
+  ══════════════════════════════════════════ -->
+  <section class="relative min-h-screen flex items-center pt-28 pb-16 px-4">
+    <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+      <!-- LEFT: Copy -->
+      <div class="space-y-7 reveal" id="hero-copy">
+
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 product-tag rounded-full px-4 py-1.5 text-purple-600 text-sm font-nunito font-semibold shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse-slow"></span>
+          🎨 Plataforma de Personalización N.º1
+        </div>
+
+        <!-- Heading -->
+        <h1 class="font-fredoka text-4xl sm:text-5xl lg:text-6xl leading-tight text-purple-900 font-semibold">
+          Plasma tus ideas<br/>gráficas en productos<br/>
+          <span class="grad-text">tangibles</span> sin<br/>incertidumbre.
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="font-inter text-purple-700/80 text-lg leading-relaxed max-w-lg">
+          Automatizamos tus pedidos. <strong class="font-semibold text-purple-800">Personaliza, aprueba y monitorea</strong>
+          tu producción en tiempo real desde cualquier dispositivo.
+        </p>
+
+        <!-- Product tags -->
+        <div class="flex flex-wrap gap-3">
+          <span class="product-tag rounded-full px-4 py-1.5 text-sm font-nunito font-medium text-purple-600 flex items-center gap-1.5">
+            👕 Poleras
+          </span>
+          <span class="product-tag rounded-full px-4 py-1.5 text-sm font-nunito font-medium text-pink-600 flex items-center gap-1.5">
+            ☕ Tazas
+          </span>
+          <span class="product-tag rounded-full px-4 py-1.5 text-sm font-nunito font-medium text-orange-500 flex items-center gap-1.5">
+            🧢 Gorras
+          </span>
+        </div>
+
+        <!-- CTA buttons -->
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#" class="btn-cta text-white font-nunito font-bold text-lg px-8 py-4 rounded-full text-center shadow-lg">
+            ✨ Personalizar Ahora
+          </a>
+          <a href="#how" class="glass rounded-full px-8 py-4 text-purple-700 font-nunito font-semibold text-lg text-center hover:bg-white/90 transition-all">
+            Ver cómo funciona →
+          </a>
+        </div>
+
+        <!-- Social proof -->
+        <div class="flex items-center gap-4 pt-2">
+          <div class="flex -space-x-2">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-300 to-pink-300 border-2 border-white"></div>
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-orange-300 to-pink-300 border-2 border-white"></div>
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-300 to-purple-300 border-2 border-white"></div>
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-300 to-blue-300 border-2 border-white"></div>
+          </div>
+          <p class="text-sm font-inter text-purple-700">
+            <strong class="font-semibold">+500 clientes</strong> confían en Subli-Tech
+          </p>
+        </div>
+      </div>
+
+      <!-- RIGHT: Illustration -->
+      <div class="flex justify-center items-center reveal" id="hero-illo">
+        <div class="relative w-full max-w-md">
+
+          <!-- Main card -->
+          <div class="glass-card rounded-3xl p-6 shadow-card relative z-10" style="animation: float 7s ease-in-out infinite;">
+            <!-- Mock order card -->
+            <div class="flex items-center justify-between mb-5">
+              <div>
+                <p class="font-fredoka text-2xl font-semibold text-purple-800">Pedido #0042</p>
+                <p class="text-sm font-inter text-purple-500">Polera Blanca · Talla M</p>
+              </div>
+              <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background:linear-gradient(135deg,#c4b5fd,#f9a8d4);">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Progress states -->
+            <div class="space-y-2.5 mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-5 h-5 rounded-full bg-purple-400 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                </div>
+                <p class="text-sm font-inter text-purple-700 font-medium">✅ En diseño</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-5 h-5 rounded-full bg-pink-400 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                </div>
+                <p class="text-sm font-inter text-purple-700 font-medium">🖨️ En impresión</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-5 h-5 rounded-full border-2 border-orange-300 bg-orange-100 flex-shrink-0 animate-pulse-slow"></div>
+                <p class="text-sm font-inter text-orange-600 font-medium">🔥 En planchado — Ahora</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-5 h-5 rounded-full border-2 border-purple-200 bg-white flex-shrink-0"></div>
+                <p class="text-sm font-inter text-purple-400">🧵 En costura</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-5 h-5 rounded-full border-2 border-purple-200 bg-white flex-shrink-0"></div>
+                <p class="text-sm font-inter text-purple-400">🎉 Listo</p>
+              </div>
+            </div>
+
+            <!-- Bottom bar -->
+            <div class="glass-dark rounded-2xl p-3 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl" style="background:linear-gradient(135deg,#fbc8b0,#f9a8d4);"></div>
+              <div class="flex-1">
+                <div class="h-2 rounded-full bg-purple-100 overflow-hidden">
+                  <div class="h-2 rounded-full w-3/5" style="background:linear-gradient(90deg,#c4b5fd,#f9a8d4);"></div>
+                </div>
+                <p class="text-xs font-inter text-purple-500 mt-1">60% completado</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating badge: validación -->
+          <div class="glass rounded-2xl px-4 py-2.5 absolute -top-5 -right-4 z-20 shadow-card"
+               style="animation: float 5s ease-in-out infinite 1s;">
+            <p class="text-xs font-nunito font-bold text-purple-700">✅ Imagen aprobada</p>
+            <p class="text-xs font-inter text-purple-400">300 DPI · PNG</p>
+          </div>
+
+          <!-- Floating badge: QR -->
+          <div class="glass rounded-2xl px-4 py-2.5 absolute -bottom-4 -left-4 z-20 shadow-card"
+               style="animation: float 6s ease-in-out infinite 0.5s;">
+            <p class="text-xs font-nunito font-bold text-pink-600">💳 Pago recibido</p>
+            <p class="text-xs font-inter text-purple-400">50% anticipo · QR</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       PRODUCTOS (products section)
+  ══════════════════════════════════════════ -->
+  <section id="products" class="py-16 px-4 relative">
+    <div class="max-w-4xl mx-auto text-center mb-10 reveal">
+      <p class="text-sm font-nunito font-semibold text-purple-400 uppercase tracking-widest mb-2">Nuestros Productos</p>
+      <h2 class="font-fredoka text-3xl sm:text-4xl font-semibold text-purple-900">Personaliza lo que imagines</h2>
+    </div>
+    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+      <!-- Polera -->
+      <div class="glass-card rounded-3xl p-6 text-center feature-card reveal">
+        <div class="w-20 h-20 rounded-3xl mx-auto mb-4 flex items-center justify-center text-4xl"
+             style="background:linear-gradient(135deg,rgba(196,181,253,0.35),rgba(249,168,212,0.35));">
+          👕
+        </div>
+        <h3 class="font-fredoka text-xl font-semibold text-purple-800 mb-2">Poleras</h3>
+        <p class="font-inter text-sm text-purple-600/80">Sublimación full HD en telas de alta calidad. Colores que perduran lavado tras lavado.</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 text-xs font-nunito font-semibold text-purple-500 bg-purple-50 rounded-full px-3 py-1">
+          Desde S/ 35 c/u
+        </div>
+      </div>
+
+      <!-- Taza -->
+      <div class="glass-card rounded-3xl p-6 text-center feature-card reveal" style="transition-delay:0.1s;">
+        <div class="w-20 h-20 rounded-3xl mx-auto mb-4 flex items-center justify-center text-4xl"
+             style="background:linear-gradient(135deg,rgba(251,207,232,0.4),rgba(253,230,216,0.4));">
+          ☕
+        </div>
+        <h3 class="font-fredoka text-xl font-semibold text-pink-700 mb-2">Tazas</h3>
+        <p class="font-inter text-sm text-purple-600/80">Cerámica premium con imagen de 360°. Apta para microondas y lavavajillas.</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 text-xs font-nunito font-semibold text-pink-500 bg-pink-50 rounded-full px-3 py-1">
+          Desde S/ 25 c/u
+        </div>
+      </div>
+
+      <!-- Gorras -->
+      <div class="glass-card rounded-3xl p-6 text-center feature-card reveal" style="transition-delay:0.2s;">
+        <div class="w-20 h-20 rounded-3xl mx-auto mb-4 flex items-center justify-center text-4xl"
+             style="background:linear-gradient(135deg,rgba(253,230,216,0.4),rgba(167,243,208,0.4));">
+          🧢
+        </div>
+        <h3 class="font-fredoka text-xl font-semibold text-orange-600 mb-2">Gorras</h3>
+        <p class="font-inter text-sm text-purple-600/80">Bordado o sublimación en panel frontal. Ajustable y disponible en múltiples colores.</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 text-xs font-nunito font-semibold text-orange-500 bg-orange-50 rounded-full px-3 py-1">
+          Desde S/ 30 c/u
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CARACTERÍSTICAS (3 tarjetas)
+  ══════════════════════════════════════════ -->
+  <section id="features" class="py-20 px-4 relative">
+    <div class="max-w-6xl mx-auto">
+
+      <!-- Header -->
+      <div class="text-center mb-14 reveal">
+        <p class="text-sm font-nunito font-semibold text-purple-400 uppercase tracking-widest mb-2">Características</p>
+        <h2 class="font-fredoka text-3xl sm:text-4xl lg:text-5xl font-semibold text-purple-900">
+          Todo lo que necesitas,<br/><span class="grad-text">en un solo lugar</span>
+        </h2>
+      </div>
+
+      <!-- Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Card 1 -->
+        <div class="glass-card rounded-3xl p-7 feature-card reveal">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-md"
+               style="background:linear-gradient(135deg,#c4b5fd,#818cf8);">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="font-fredoka text-xl font-semibold text-purple-900 mb-3">Personalizador Visual</h3>
+          <p class="font-inter text-purple-700/75 text-sm leading-relaxed">
+            Sistema inteligente que <strong class="text-purple-800">valida automáticamente la resolución</strong> de tus imágenes (PNG/JPG). Sube tu arte y recibe retroalimentación inmediata antes de producir.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="text-xs bg-purple-100 text-purple-600 rounded-full px-3 py-1 font-nunito font-semibold">PNG</span>
+            <span class="text-xs bg-purple-100 text-purple-600 rounded-full px-3 py-1 font-nunito font-semibold">JPG</span>
+            <span class="text-xs bg-green-100 text-green-600 rounded-full px-3 py-1 font-nunito font-semibold">≥300 DPI ✓</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-card rounded-3xl p-7 feature-card reveal" style="transition-delay:0.15s;">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-md"
+               style="background:linear-gradient(135deg,#f9a8d4,#fb7185);">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="font-fredoka text-xl font-semibold text-purple-900 mb-3">Aprobación Segura</h3>
+          <p class="font-inter text-purple-700/75 text-sm leading-relaxed">
+            Visualiza el <strong class="text-purple-800">mockup digital de tu pedido</strong> antes de que empiece la producción. Aprueba o solicita cambios con un solo clic. Cero errores costosos.
+          </p>
+          <div class="mt-5 p-3 rounded-2xl glass-dark">
+            <div class="flex items-center gap-2">
+              <div class="w-2 h-2 rounded-full bg-green-400"></div>
+              <p class="text-xs font-nunito font-semibold text-purple-700">Vista previa disponible en 2 min</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-card rounded-3xl p-7 feature-card reveal" style="transition-delay:0.3s;">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-md"
+               style="background:linear-gradient(135deg,#fbc8b0,#fb923c);">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+            </svg>
+          </div>
+          <h3 class="font-fredoka text-xl font-semibold text-purple-900 mb-3">Trazabilidad Total</h3>
+          <p class="font-inter text-purple-700/75 text-sm leading-relaxed">
+            Seguimiento en <strong class="text-purple-800">tiempo real de tu pedido</strong> dentro del taller. Sabe exactamente en qué etapa está tu producto: diseño, impresión, planchado, costura o listo.
+          </p>
+          <div class="mt-5 flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></div>
+            <p class="text-xs font-nunito font-semibold text-orange-600">Actualizaciones en vivo</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CÓMO FUNCIONA – LÍNEA DE TIEMPO
+  ══════════════════════════════════════════ -->
+  <section id="how" class="py-20 px-4 relative">
+    <div class="max-w-5xl mx-auto">
+
+      <!-- Header -->
+      <div class="text-center mb-16 reveal">
+        <p class="text-sm font-nunito font-semibold text-purple-400 uppercase tracking-widest mb-2">Proceso</p>
+        <h2 class="font-fredoka text-3xl sm:text-4xl lg:text-5xl font-semibold text-purple-900">
+          Cómo Funciona
+        </h2>
+        <p class="font-inter text-purple-600/80 mt-3 max-w-lg mx-auto">
+          De tu idea a un producto real en pocos pasos simples.
+        </p>
+      </div>
+
+      <!-- Desktop Timeline (horizontal) -->
+      <div class="hidden md:block">
+
+        <!-- Connector line -->
+        <div class="relative flex items-start justify-between gap-4 mb-0">
+          <div class="absolute top-8 left-[12%] right-[12%] h-0.5 timeline-line rounded-full"></div>
+
+          <!-- Step 1 -->
+          <div class="flex flex-col items-center text-center w-1/4 reveal">
+            <div class="step-circle w-16 h-16 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-2xl z-10 mb-4">
+              1
+            </div>
+            <div class="glass-card rounded-2xl p-4 w-full">
+              <div class="text-2xl mb-2">🎨</div>
+              <h4 class="font-fredoka font-semibold text-lg text-purple-900 mb-1">Sube tu Arte</h4>
+              <p class="font-inter text-xs text-purple-600/80 leading-relaxed">Carga tu diseño en alta calidad. Validamos la resolución al instante.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="flex flex-col items-center text-center w-1/4 reveal" style="transition-delay:0.1s;">
+            <div class="step-circle w-16 h-16 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-2xl z-10 mb-4">
+              2
+            </div>
+            <div class="glass-card rounded-2xl p-4 w-full">
+              <div class="text-2xl mb-2">👁️</div>
+              <h4 class="font-fredoka font-semibold text-lg text-purple-900 mb-1">Revisa el Mockup</h4>
+              <p class="font-inter text-xs text-purple-600/80 leading-relaxed">Aprueba tu muestra digital antes de producir. Sin sorpresas.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="flex flex-col items-center text-center w-1/4 reveal" style="transition-delay:0.2s;">
+            <div class="step-circle w-16 h-16 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-2xl z-10 mb-4">
+              3
+            </div>
+            <div class="glass-card rounded-2xl p-4 w-full">
+              <div class="text-2xl mb-2">📱</div>
+              <h4 class="font-fredoka font-semibold text-lg text-purple-900 mb-1">Pago Rápido</h4>
+              <p class="font-inter text-xs text-purple-600/80 leading-relaxed">Transfiere el <strong>50% de anticipo</strong> obligatorio de forma segura mediante código QR.</p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="flex flex-col items-center text-center w-1/4 reveal" style="transition-delay:0.3s;">
+            <div class="step-circle w-16 h-16 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-2xl z-10 mb-4">
+              4
+            </div>
+            <div class="glass-card rounded-2xl p-4 w-full">
+              <div class="text-2xl mb-2">📍</div>
+              <h4 class="font-fredoka font-semibold text-lg text-purple-900 mb-1">Monitorea</h4>
+              <p class="font-inter text-xs text-purple-600/80 leading-relaxed">Sigue los estados en vivo: Diseño → Impresión → Planchado → Costura → Listo 🎉</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Mobile Timeline (vertical) -->
+      <div class="md:hidden space-y-6">
+
+        <!-- Step 1 -->
+        <div class="flex gap-4 items-start reveal">
+          <div class="flex flex-col items-center">
+            <div class="step-circle w-12 h-12 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-lg flex-shrink-0">1</div>
+            <div class="w-0.5 h-16 timeline-line mt-2"></div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 flex-1">
+            <div class="flex items-center gap-2 mb-2"><span class="text-xl">🎨</span><h4 class="font-fredoka font-semibold text-purple-900">Sube tu Arte</h4></div>
+            <p class="font-inter text-sm text-purple-600/80">Carga tu diseño en alta calidad. Validamos la resolución al instante.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex gap-4 items-start reveal" style="transition-delay:0.1s;">
+          <div class="flex flex-col items-center">
+            <div class="step-circle w-12 h-12 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-lg flex-shrink-0">2</div>
+            <div class="w-0.5 h-16 timeline-line mt-2"></div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 flex-1">
+            <div class="flex items-center gap-2 mb-2"><span class="text-xl">👁️</span><h4 class="font-fredoka font-semibold text-purple-900">Revisa el Mockup</h4></div>
+            <p class="font-inter text-sm text-purple-600/80">Aprueba tu muestra digital antes de producir. Sin sorpresas.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex gap-4 items-start reveal" style="transition-delay:0.2s;">
+          <div class="flex flex-col items-center">
+            <div class="step-circle w-12 h-12 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-lg flex-shrink-0">3</div>
+            <div class="w-0.5 h-16 timeline-line mt-2"></div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 flex-1">
+            <div class="flex items-center gap-2 mb-2"><span class="text-xl">📱</span><h4 class="font-fredoka font-semibold text-purple-900">Pago Rápido</h4></div>
+            <p class="font-inter text-sm text-purple-600/80">Transfiere el <strong>50% de anticipo</strong> obligatorio mediante código QR.</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="flex gap-4 items-start reveal" style="transition-delay:0.3s;">
+          <div class="flex flex-col items-center">
+            <div class="step-circle w-12 h-12 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-lg flex-shrink-0">4</div>
+          </div>
+          <div class="glass-card rounded-2xl p-4 flex-1">
+            <div class="flex items-center gap-2 mb-2"><span class="text-xl">📍</span><h4 class="font-fredoka font-semibold text-purple-900">Monitorea</h4></div>
+            <p class="font-inter text-sm text-purple-600/80">Diseño → Impresión → Planchado → Costura → Listo 🎉</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CTA BANNER
+  ══════════════════════════════════════════ -->
+  <section class="py-16 px-4">
+    <div class="max-w-3xl mx-auto reveal">
+      <div class="glass-card rounded-3xl p-10 text-center relative overflow-hidden">
+        <!-- Decorative circles -->
+        <div class="absolute -top-8 -right-8 w-40 h-40 rounded-full opacity-30"
+             style="background:linear-gradient(135deg,#c4b5fd,#f9a8d4);"></div>
+        <div class="absolute -bottom-6 -left-6 w-28 h-28 rounded-full opacity-25"
+             style="background:linear-gradient(135deg,#fbc8b0,#f9a8d4);"></div>
+
+        <div class="relative z-10">
+          <div class="text-4xl mb-4">🚀</div>
+          <h2 class="font-fredoka text-3xl sm:text-4xl font-semibold text-purple-900 mb-3">
+            ¿Listo para comenzar?
+          </h2>
+          <p class="font-inter text-purple-700/80 mb-7 max-w-md mx-auto">
+            Únete a más de <strong class="text-purple-800">500 clientes</strong> que ya automatizan sus pedidos con Subli-Tech y ahorra tiempo valioso.
+          </p>
+          <a href="#" class="btn-cta text-white font-nunito font-bold text-lg px-10 py-4 rounded-full inline-block shadow-lg">
+            ✨ Empezar Gratis Ahora
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer class="mt-8 px-4 pb-0">
+    <div class="rounded-t-3xl px-8 py-12" style="background:linear-gradient(135deg,#3b1f6e 0%,#4c1d95 40%,#6b21a8 100%);">
+
+      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+
+        <!-- Brand -->
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-9 h-9 rounded-full btn-cta flex items-center justify-center shadow-md">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
+                  d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+              </svg>
+            </div>
+            <span class="font-fredoka text-xl font-semibold text-white">Subli-Tech</span>
+          </div>
+          <p class="font-inter text-purple-200 text-sm leading-relaxed max-w-xs">
+            Automatizando la personalización de productos con tecnología de vanguardia.
+          </p>
+          <!-- Metric -->
+          <div class="mt-4 inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2">
+            <span class="text-green-400 font-nunito font-bold text-sm">📈 +25%</span>
+            <span class="text-purple-200 font-inter text-xs">Optimizando el tiempo de respuesta</span>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <h4 class="font-fredoka text-white font-semibold text-lg mb-4">Plataforma</h4>
+          <ul class="space-y-2 font-inter text-sm text-purple-300">
+            <li><a href="#" class="hover:text-white transition-colors">Personalizador Visual</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Aprobación de Mockups</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Seguimiento de Pedidos</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Pago por QR</a></li>
+          </ul>
+        </div>
+
+        <!-- Products & Contact -->
+        <div>
+          <h4 class="font-fredoka text-white font-semibold text-lg mb-4">Productos</h4>
+          <ul class="space-y-2 font-inter text-sm text-purple-300 mb-5">
+            <li>👕 Poleras</li>
+            <li>☕ Tazas</li>
+            <li>🧢 Gorras</li>
+          </ul>
+          <div class="flex gap-3">
+            <!-- Social icons (placeholder) -->
+            <a href="#" class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/30 transition-colors text-white text-xs font-bold">IG</a>
+            <a href="#" class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/30 transition-colors text-white text-xs font-bold">WA</a>
+            <a href="#" class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/30 transition-colors text-white text-xs font-bold">FB</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Divider -->
+      <div class="border-t border-white/15 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="font-inter text-purple-300 text-sm text-center">
+          Optimizando el tiempo de respuesta en un <strong class="text-purple-100">25%</strong> con cada pedido automatizado.
+        </p>
+        <p class="font-inter text-purple-400 text-xs text-center">
+          © 2026 Subli-Tech. Todos los derechos reservados.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════
+       SCROLL REVEAL SCRIPT
+  ══════════════════════════════════════════ -->
+  <script>
+    // Intersection Observer for reveal animations
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(el => {
+        if (el.isIntersecting) {
+          el.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // Trigger hero elements immediately
+    document.querySelectorAll('#hero-copy, #hero-illo').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 100);
+    });
+  </script>
+
+</body>
+</html>
