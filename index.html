@@ -3,730 +3,505 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Subli-Tech – Personalización sin Incertidumbre</title>
-
-  <!-- Google Fonts -->
+  <title>Subli-Tech — Personaliza Tus Artículos Sublimados</title>
+  <meta name="description" content="Subli-Tech Bolivia: poleras, tazas y gorras personalizadas con sublimación de alta calidad. Diseño único, entrega rápida en Bolivia." />
+  <meta name="keywords" content="sublimación, poleras personalizadas, tazas personalizadas, gorras, bolivia, cochabamba, la paz" />
+  <meta name="author" content="Subli-Tech Bolivia" />
+  <meta property="og:title"       content="Subli-Tech — Tu Diseño, Nuestra Pasión" />
+  <meta property="og:description" content="Artículos sublimados de alta calidad. Personaliza poleras, tazas y gorras con tu diseño." />
+  <meta property="og:type"        content="website" />
+  <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            fredoka: ['Fredoka', 'sans-serif'],
-            nunito:  ['Nunito',  'sans-serif'],
-            inter:   ['Inter',   'sans-serif'],
-          },
-          colors: {
-            lila:    { DEFAULT: '#c4b5fd', light: '#ede9fe', dark: '#7c3aed' },
-            durazno: { DEFAULT: '#fbc8b0', light: '#fff1ec' },
-            menta:   { DEFAULT: '#a7f3d0', light: '#ecfdf5' },
-            cielo:   { DEFAULT: '#bae6fd', light: '#f0f9ff' },
-            rosa:    { DEFAULT: '#fbcfe8', light: '#fdf2f8' },
-          },
-          backdropBlur: { xs: '2px' },
-          boxShadow: {
-            glass: '0 8px 32px 0 rgba(196,181,253,0.25)',
-            card:  '0 4px 40px 0 rgba(196,181,253,0.18)',
-          },
-          animation: {
-            'float':     'float 6s ease-in-out infinite',
-            'float-slow':'float 9s ease-in-out infinite',
-            'fade-up':   'fadeUp 0.7s ease-out forwards',
-            'pulse-slow':'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite',
-          },
-          keyframes: {
-            float:   { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
-            fadeUp:  { '0%':   { opacity: 0, transform: 'translateY(28px)' },
-                       '100%': { opacity: 1, transform: 'translateY(0)' } },
-          },
-        },
-      },
-    };
-  </script>
-
-  <style>
-    /* ── Base ── */
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #e9d5ff 0%, #fce7f3 35%, #fde8d8 65%, #ffe4d6 100%);
-      min-height: 100vh;
-    }
-
-    /* ── Glassmorphism helpers ── */
-    .glass {
-      background: rgba(255,255,255,0.72);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255,255,255,0.55);
-    }
-    .glass-card {
-      background: rgba(255,255,255,0.68);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,0.6);
-      box-shadow: 0 6px 36px 0 rgba(196,181,253,0.22);
-    }
-    .glass-dark {
-      background: rgba(124,58,237,0.08);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(196,181,253,0.35);
-    }
-
-    /* ── Gradient text ── */
-    .grad-text {
-      background: linear-gradient(90deg, #a78bfa 0%, #f472b6 60%, #fb923c 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* ── CTA button ── */
-    .btn-cta {
-      background: linear-gradient(135deg, #c4b5fd 0%, #f9a8d4 100%);
-      transition: all 0.35s ease;
-      box-shadow: 0 4px 20px rgba(196,181,253,0.55);
-    }
-    .btn-cta:hover {
-      background: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
-      box-shadow: 0 8px 30px rgba(167,139,250,0.55);
-      transform: translateY(-2px) scale(1.03);
-    }
-
-    /* ── Nav pill button ── */
-    .btn-nav {
-      background: linear-gradient(135deg, #c4b5fd 0%, #f9a8d4 100%);
-      transition: all 0.3s ease;
-    }
-    .btn-nav:hover {
-      background: linear-gradient(135deg, #a78bfa 0%, #ec4899 100%);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(167,139,250,0.5);
-    }
-
-    /* ── Timeline connector ── */
-    .timeline-line {
-      background: linear-gradient(90deg, #c4b5fd, #f9a8d4);
-    }
-
-    /* ── Floating blobs ── */
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    /* ── Feature card hover ── */
-    .feature-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .feature-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 48px rgba(196,181,253,0.35);
-    }
-
-    /* ── Step circle ── */
-    .step-circle {
-      background: linear-gradient(135deg, #c4b5fd 0%, #f9a8d4 100%);
-      box-shadow: 0 4px 16px rgba(196,181,253,0.55);
-    }
-
-    /* ── Scroll animation helpers ── */
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* ── Product pill tags ── */
-    .product-tag {
-      background: rgba(255,255,255,0.75);
-      border: 1px solid rgba(196,181,253,0.5);
-    }
-
-    /* ── Illustration wrapper ── */
-    .illo-bg {
-      background: linear-gradient(135deg, rgba(196,181,253,0.3) 0%, rgba(251,207,232,0.3) 100%);
-      border: 1px solid rgba(255,255,255,0.7);
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 </head>
+<body>
 
-<body class="overflow-x-hidden">
-
-  <!-- ══════════════════════════════════════════
-       BLOBS DE FONDO
-  ══════════════════════════════════════════ -->
-  <div class="blob w-96 h-96 bg-purple-300 top-[-4rem] left-[-6rem]" style="animation: float 10s ease-in-out infinite;"></div>
-  <div class="blob w-72 h-72 bg-pink-200 top-32 right-[-4rem]"        style="animation: float 13s ease-in-out infinite reverse;"></div>
-  <div class="blob w-80 h-80 bg-orange-200 bottom-1/3 left-1/4"       style="animation: float 11s ease-in-out infinite 2s;"></div>
-  <div class="blob w-64 h-64 bg-violet-200 bottom-24 right-8"         style="animation: float 8s ease-in-out infinite 1s;"></div>
-
-  <!-- ══════════════════════════════════════════
-       NAVBAR FLOTANTE CON GLASSMORPHISM
-  ══════════════════════════════════════════ -->
-  <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
-    <div class="glass rounded-full px-6 py-3 flex items-center justify-between shadow-glass">
+<!-- ══════════════════════════════════════════════════
+     HEADER
+     ══════════════════════════════════════════════════ -->
+<header class="header" id="header">
+  <div class="container">
+    <div class="header-inner">
 
       <!-- Logo -->
-      <div class="flex items-center gap-2">
-        <div class="w-9 h-9 rounded-full btn-cta flex items-center justify-center shadow-md">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
-              d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
-          </svg>
-        </div>
-        <span class="font-fredoka font-600 text-xl tracking-wide" style="font-weight:600;">
-          <span class="grad-text">Subli</span><span class="text-purple-800">-Tech</span>
-        </span>
+      <a href="index.html" class="logo" id="logo-link">
+        <img src="img/logo.png" alt="Subli-Tech" style="height:50px;width:auto;object-fit:contain;" />
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="nav" role="navigation" aria-label="Menú principal">
+        <a href="#catalogo"    class="nav-link" id="nav-catalogo">Catálogo</a>
+        <a href="#como-funciona" class="nav-link" id="nav-proceso">¿Cómo funciona?</a>
+        <a href="#por-que"    class="nav-link" id="nav-porque">¿Por qué nosotros?</a>
+        <a href="login.html"  class="btn btn-sm" id="nav-login" style="background:linear-gradient(135deg,#7A00FF,#FF007F);color:#fff;padding:8px 18px;border-radius:50px;font-weight:700;font-size:0.85rem;letter-spacing:0.02em;">Iniciar Sesión</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="header-actions">
+        <a href="carrito.html" class="cart-btn" id="cart-btn" aria-label="Ver carrito">
+          🛒
+          <span class="cart-badge" id="cart-badge">0</span>
+        </a>
+        <a href="producto.html?id=1" class="btn btn-cta btn-sm" id="header-cta" style="display:none;">
+          Personalizar
+        </a>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
 
-      <!-- Nav links (hidden on mobile) -->
-      <ul class="hidden md:flex items-center gap-6 font-inter text-sm text-purple-700 font-medium">
-        <li><a href="#features" class="hover:text-purple-500 transition-colors">Características</a></li>
-        <li><a href="#how"      class="hover:text-purple-500 transition-colors">Cómo Funciona</a></li>
-        <li><a href="#products" class="hover:text-purple-500 transition-colors">Productos</a></li>
-      </ul>
-
-      <!-- CTA pill button -->
-      <a href="#" class="btn-nav text-white text-sm font-nunito font-semibold px-5 py-2.5 rounded-full shadow-md whitespace-nowrap">
-        Ingresar al Sistema
-      </a>
     </div>
-  </nav>
+  </div>
+</header>
 
-  <!-- ══════════════════════════════════════════
-       HERO SECTION
-  ══════════════════════════════════════════ -->
-  <section class="relative min-h-screen flex items-center pt-28 pb-16 px-4">
-    <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Menú móvil">
+  <a href="#catalogo"     class="nav-link" id="m-nav-catalogo">🛍️ Catálogo</a>
+  <a href="#como-funciona" class="nav-link" id="m-nav-proceso">⚙️ ¿Cómo funciona?</a>
+  <a href="#por-que"      class="nav-link" id="m-nav-porque">⭐ ¿Por qué nosotros?</a>
+  <a href="login.html"    class="nav-link" id="m-nav-login">🔑 Iniciar Sesión</a>
+</div>
 
-      <!-- LEFT: Copy -->
-      <div class="space-y-7 reveal" id="hero-copy">
+<main>
 
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-2 product-tag rounded-full px-4 py-1.5 text-purple-600 text-sm font-nunito font-semibold shadow-sm">
-          <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse-slow"></span>
-          🎨 Plataforma de Personalización N.º1
+<!-- ══════════════════════════════════════════════════
+     HERO SECTION
+     ══════════════════════════════════════════════════ -->
+<section class="hero" id="inicio" aria-label="Sección principal">
+  <!-- Mesh gradient overlay (Fase 5) -->
+  <div class="hero-mesh" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Content -->
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span class="dot"></span>
+          Sublimación Premium en Bolivia
         </div>
 
-        <!-- Heading -->
-        <h1 class="font-fredoka text-4xl sm:text-5xl lg:text-6xl leading-tight text-purple-900 font-semibold">
-          Plasma tus ideas<br/>gráficas en productos<br/>
-          <span class="grad-text">tangibles</span> sin<br/>incertidumbre.
+        <h1 class="hero-title">
+          Tu Diseño,<br>
+          Nuestra <em>Pasión</em>
         </h1>
 
-        <!-- Subtitle -->
-        <p class="font-inter text-purple-700/80 text-lg leading-relaxed max-w-lg">
-          Automatizamos tus pedidos. <strong class="font-semibold text-purple-800">Personaliza, aprueba y monitorea</strong>
-          tu producción en tiempo real desde cualquier dispositivo.
+        <p class="hero-subtitle">
+          Poleras, tazas y gorras personalizadas con tecnología de sublimación de alta definición.
+          Colores que no se van, calidad que se siente.
         </p>
 
-        <!-- Product tags -->
-        <div class="flex flex-wrap gap-3">
-          <span class="product-tag rounded-full px-4 py-1.5 text-sm font-nunito font-medium text-purple-600 flex items-center gap-1.5">
-            👕 Poleras
-          </span>
-          <span class="product-tag rounded-full px-4 py-1.5 text-sm font-nunito font-medium text-pink-600 flex items-center gap-1.5">
-            ☕ Tazas
-          </span>
-          <span class="product-tag rounded-full px-4 py-1.5 text-sm font-nunito font-medium text-orange-500 flex items-center gap-1.5">
-            🧢 Gorras
-          </span>
-        </div>
-
-        <!-- CTA buttons -->
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="#" class="btn-cta text-white font-nunito font-bold text-lg px-8 py-4 rounded-full text-center shadow-lg">
-            ✨ Personalizar Ahora
+        <div class="hero-ctas">
+          <a href="#catalogo" class="btn btn-cta btn-pulse" id="hero-btn-catalogo">
+            🎨 Personalizar Ahora
           </a>
-          <a href="#how" class="glass rounded-full px-8 py-4 text-purple-700 font-nunito font-semibold text-lg text-center hover:bg-white/90 transition-all">
-            Ver cómo funciona →
+          <a href="#como-funciona" class="btn btn-hero-secondary" id="hero-btn-proceso">
+            ¿Cómo funciona?
           </a>
         </div>
 
-        <!-- Social proof -->
-        <div class="flex items-center gap-4 pt-2">
-          <div class="flex -space-x-2">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-300 to-pink-300 border-2 border-white"></div>
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-orange-300 to-pink-300 border-2 border-white"></div>
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-300 to-purple-300 border-2 border-white"></div>
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-300 to-blue-300 border-2 border-white"></div>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-num">+<span>850</span></div>
+            <div class="stat-label">Pedidos entregados</div>
           </div>
-          <p class="text-sm font-inter text-purple-700">
-            <strong class="font-semibold">+500 clientes</strong> confían en Subli-Tech
-          </p>
+          <div class="stat">
+            <div class="stat-num"><span>98</span>%</div>
+            <div class="stat-label">Satisfacción cliente</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num"><span>3</span></div>
+            <div class="stat-label">Días de entrega promedio</div>
+          </div>
         </div>
       </div>
 
-      <!-- RIGHT: Illustration -->
-      <div class="flex justify-center items-center reveal" id="hero-illo">
-        <div class="relative w-full max-w-md">
-
-          <!-- Main card -->
-          <div class="glass-card rounded-3xl p-6 shadow-card relative z-10" style="animation: float 7s ease-in-out infinite;">
-            <!-- Mock order card -->
-            <div class="flex items-center justify-between mb-5">
-              <div>
-                <p class="font-fredoka text-2xl font-semibold text-purple-800">Pedido #0042</p>
-                <p class="text-sm font-inter text-purple-500">Polera Blanca · Talla M</p>
-              </div>
-              <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background:linear-gradient(135deg,#c4b5fd,#f9a8d4);">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-            </div>
-
-            <!-- Progress states -->
-            <div class="space-y-2.5 mb-5">
-              <div class="flex items-center gap-3">
-                <div class="w-5 h-5 rounded-full bg-purple-400 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                </div>
-                <p class="text-sm font-inter text-purple-700 font-medium">✅ En diseño</p>
-              </div>
-              <div class="flex items-center gap-3">
-                <div class="w-5 h-5 rounded-full bg-pink-400 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                </div>
-                <p class="text-sm font-inter text-purple-700 font-medium">🖨️ En impresión</p>
-              </div>
-              <div class="flex items-center gap-3">
-                <div class="w-5 h-5 rounded-full border-2 border-orange-300 bg-orange-100 flex-shrink-0 animate-pulse-slow"></div>
-                <p class="text-sm font-inter text-orange-600 font-medium">🔥 En planchado — Ahora</p>
-              </div>
-              <div class="flex items-center gap-3">
-                <div class="w-5 h-5 rounded-full border-2 border-purple-200 bg-white flex-shrink-0"></div>
-                <p class="text-sm font-inter text-purple-400">🧵 En costura</p>
-              </div>
-              <div class="flex items-center gap-3">
-                <div class="w-5 h-5 rounded-full border-2 border-purple-200 bg-white flex-shrink-0"></div>
-                <p class="text-sm font-inter text-purple-400">🎉 Listo</p>
-              </div>
-            </div>
-
-            <!-- Bottom bar -->
-            <div class="glass-dark rounded-2xl p-3 flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl" style="background:linear-gradient(135deg,#fbc8b0,#f9a8d4);"></div>
-              <div class="flex-1">
-                <div class="h-2 rounded-full bg-purple-100 overflow-hidden">
-                  <div class="h-2 rounded-full w-3/5" style="background:linear-gradient(90deg,#c4b5fd,#f9a8d4);"></div>
-                </div>
-                <p class="text-xs font-inter text-purple-500 mt-1">60% completado</p>
-              </div>
-            </div>
+      <!-- Visual / Card mockup -->
+      <div class="hero-visual">
+        <div class="hero-card-mockup">
+          <div class="mockup-img-wrap">
+            <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&h=240&fit=crop&auto=format" alt="Productos sublimados personalizados" style="border-radius:12px;" />
           </div>
-
-          <!-- Floating badge: validación -->
-          <div class="glass rounded-2xl px-4 py-2.5 absolute -top-5 -right-4 z-20 shadow-card"
-               style="animation: float 5s ease-in-out infinite 1s;">
-            <p class="text-xs font-nunito font-bold text-purple-700">✅ Imagen aprobada</p>
-            <p class="text-xs font-inter text-purple-400">300 DPI · PNG</p>
+          <div class="mockup-info">
+            <h4>Polera Personalizada</h4>
+            <p class="mockup-price">Desde Bs. 65</p>
+            <div class="mockup-bar">
+              <div class="mockup-bar-fill" style="width:75%"></div>
+            </div>
+            <p class="mockup-bar-label">75% de pedidos en producción hoy</p>
           </div>
+        </div>
 
-          <!-- Floating badge: QR -->
-          <div class="glass rounded-2xl px-4 py-2.5 absolute -bottom-4 -left-4 z-20 shadow-card"
-               style="animation: float 6s ease-in-out infinite 0.5s;">
-            <p class="text-xs font-nunito font-bold text-pink-600">💳 Pago recibido</p>
-            <p class="text-xs font-inter text-purple-400">50% anticipo · QR</p>
+        <!-- Floating badges -->
+        <div class="hero-badge-float left" id="badge-entrega">
+          <div class="badge-icon green">✅</div>
+          <div class="badge-text">
+            <h5>Pedido Listo</h5>
+            <p>María F. — hace 2 min</p>
           </div>
+        </div>
 
+        <div class="hero-badge-float right" id="badge-nuevo">
+          <div class="badge-icon purple">🎨</div>
+          <div class="badge-text">
+            <h5>Nuevo Diseño</h5>
+            <p>10 pedidos hoy</p>
+          </div>
         </div>
       </div>
 
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ══════════════════════════════════════════
-       PRODUCTOS (products section)
-  ══════════════════════════════════════════ -->
-  <section id="products" class="py-16 px-4 relative">
-    <div class="max-w-4xl mx-auto text-center mb-10 reveal">
-      <p class="text-sm font-nunito font-semibold text-purple-400 uppercase tracking-widest mb-2">Nuestros Productos</p>
-      <h2 class="font-fredoka text-3xl sm:text-4xl font-semibold text-purple-900">Personaliza lo que imagines</h2>
+
+<!-- ══════════════════════════════════════════════════
+     CATALOG SECTION
+     ══════════════════════════════════════════════════ -->
+<section class="catalog section-padding section-mesh" id="catalogo" aria-label="Catálogo de productos">
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-eyebrow">🛍️ Catálogo</span>
+      <h2 class="section-title">Elige tu <span class="text-gradient">Artículo Blanco</span></h2>
+      <p class="section-sub">Selecciona el producto perfecto y personalízalo con tu diseño. ¡Los colores duran para siempre!</p>
     </div>
-    <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6">
 
-      <!-- Polera -->
-      <div class="glass-card rounded-3xl p-6 text-center feature-card reveal">
-        <div class="w-20 h-20 rounded-3xl mx-auto mb-4 flex items-center justify-center text-4xl"
-             style="background:linear-gradient(135deg,rgba(196,181,253,0.35),rgba(249,168,212,0.35));">
-          👕
-        </div>
-        <h3 class="font-fredoka text-xl font-semibold text-purple-800 mb-2">Poleras</h3>
-        <p class="font-inter text-sm text-purple-600/80">Sublimación full HD en telas de alta calidad. Colores que perduran lavado tras lavado.</p>
-        <div class="mt-4 inline-flex items-center gap-1.5 text-xs font-nunito font-semibold text-purple-500 bg-purple-50 rounded-full px-3 py-1">
-          Desde S/ 35 c/u
-        </div>
-      </div>
-
-      <!-- Taza -->
-      <div class="glass-card rounded-3xl p-6 text-center feature-card reveal" style="transition-delay:0.1s;">
-        <div class="w-20 h-20 rounded-3xl mx-auto mb-4 flex items-center justify-center text-4xl"
-             style="background:linear-gradient(135deg,rgba(251,207,232,0.4),rgba(253,230,216,0.4));">
-          ☕
-        </div>
-        <h3 class="font-fredoka text-xl font-semibold text-pink-700 mb-2">Tazas</h3>
-        <p class="font-inter text-sm text-purple-600/80">Cerámica premium con imagen de 360°. Apta para microondas y lavavajillas.</p>
-        <div class="mt-4 inline-flex items-center gap-1.5 text-xs font-nunito font-semibold text-pink-500 bg-pink-50 rounded-full px-3 py-1">
-          Desde S/ 25 c/u
-        </div>
-      </div>
-
-      <!-- Gorras -->
-      <div class="glass-card rounded-3xl p-6 text-center feature-card reveal" style="transition-delay:0.2s;">
-        <div class="w-20 h-20 rounded-3xl mx-auto mb-4 flex items-center justify-center text-4xl"
-             style="background:linear-gradient(135deg,rgba(253,230,216,0.4),rgba(167,243,208,0.4));">
-          🧢
-        </div>
-        <h3 class="font-fredoka text-xl font-semibold text-orange-600 mb-2">Gorras</h3>
-        <p class="font-inter text-sm text-purple-600/80">Bordado o sublimación en panel frontal. Ajustable y disponible en múltiples colores.</p>
-        <div class="mt-4 inline-flex items-center gap-1.5 text-xs font-nunito font-semibold text-orange-500 bg-orange-50 rounded-full px-3 py-1">
-          Desde S/ 30 c/u
-        </div>
-      </div>
-
+    <!-- Filter tabs -->
+    <div class="catalog-filters" role="group" aria-label="Filtros de categoría">
+      <button class="filter-btn active" id="filter-todos"   data-filter="todos">Todos</button>
+      <button class="filter-btn"        id="filter-polera"  data-filter="polera">👕 Poleras</button>
+      <button class="filter-btn"        id="filter-taza"    data-filter="taza">☕ Tazas</button>
+      <button class="filter-btn"        id="filter-gorra"   data-filter="gorra">🧢 Gorras</button>
+      <button class="filter-btn"        id="filter-cojin"   data-filter="cojin">🛋️ Cojines</button>
     </div>
-  </section>
 
-  <!-- ══════════════════════════════════════════
-       CARACTERÍSTICAS (3 tarjetas)
-  ══════════════════════════════════════════ -->
-  <section id="features" class="py-20 px-4 relative">
-    <div class="max-w-6xl mx-auto">
-
-      <!-- Header -->
-      <div class="text-center mb-14 reveal">
-        <p class="text-sm font-nunito font-semibold text-purple-400 uppercase tracking-widest mb-2">Características</p>
-        <h2 class="font-fredoka text-3xl sm:text-4xl lg:text-5xl font-semibold text-purple-900">
-          Todo lo que necesitas,<br/><span class="grad-text">en un solo lugar</span>
-        </h2>
+    <!-- Products Grid — se rellena dinámicamente desde MySQL via js/datos.js -->
+    <div class="products-grid" id="products-grid" role="list" aria-live="polite">
+      <!-- Skeleton loader mientras carga MySQL -->
+      <div class="catalog-loading" id="catalog-loading" style="grid-column:1/-1;text-align:center;padding:48px 20px;">
+        <div style="display:inline-flex;align-items:center;gap:12px;color:#7A00FF;font-family:'Poppins',sans-serif;font-size:0.95rem;font-weight:600;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7A00FF" stroke-width="2.5" stroke-linecap="round">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
+              <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/>
+            </path>
+          </svg>
+          Cargando catálogo desde la base de datos…
+        </div>
       </div>
+    </div><!-- /products-grid -->
 
-      <!-- Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        <!-- Card 1 -->
-        <div class="glass-card rounded-3xl p-7 feature-card reveal">
-          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-md"
-               style="background:linear-gradient(135deg,#c4b5fd,#818cf8);">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-            </svg>
-          </div>
-          <h3 class="font-fredoka text-xl font-semibold text-purple-900 mb-3">Personalizador Visual</h3>
-          <p class="font-inter text-purple-700/75 text-sm leading-relaxed">
-            Sistema inteligente que <strong class="text-purple-800">valida automáticamente la resolución</strong> de tus imágenes (PNG/JPG). Sube tu arte y recibe retroalimentación inmediata antes de producir.
-          </p>
-          <div class="mt-5 flex flex-wrap gap-2">
-            <span class="text-xs bg-purple-100 text-purple-600 rounded-full px-3 py-1 font-nunito font-semibold">PNG</span>
-            <span class="text-xs bg-purple-100 text-purple-600 rounded-full px-3 py-1 font-nunito font-semibold">JPG</span>
-            <span class="text-xs bg-green-100 text-green-600 rounded-full px-3 py-1 font-nunito font-semibold">≥300 DPI ✓</span>
-          </div>
-        </div>
+  </div>
+</section>
 
-        <!-- Card 2 -->
-        <div class="glass-card rounded-3xl p-7 feature-card reveal" style="transition-delay:0.15s;">
-          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-md"
-               style="background:linear-gradient(135deg,#f9a8d4,#fb7185);">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-            </svg>
-          </div>
-          <h3 class="font-fredoka text-xl font-semibold text-purple-900 mb-3">Aprobación Segura</h3>
-          <p class="font-inter text-purple-700/75 text-sm leading-relaxed">
-            Visualiza el <strong class="text-purple-800">mockup digital de tu pedido</strong> antes de que empiece la producción. Aprueba o solicita cambios con un solo clic. Cero errores costosos.
-          </p>
-          <div class="mt-5 p-3 rounded-2xl glass-dark">
-            <div class="flex items-center gap-2">
-              <div class="w-2 h-2 rounded-full bg-green-400"></div>
-              <p class="text-xs font-nunito font-semibold text-purple-700">Vista previa disponible en 2 min</p>
-            </div>
-          </div>
-        </div>
 
-        <!-- Card 3 -->
-        <div class="glass-card rounded-3xl p-7 feature-card reveal" style="transition-delay:0.3s;">
-          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-md"
-               style="background:linear-gradient(135deg,#fbc8b0,#fb923c);">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
-            </svg>
-          </div>
-          <h3 class="font-fredoka text-xl font-semibold text-purple-900 mb-3">Trazabilidad Total</h3>
-          <p class="font-inter text-purple-700/75 text-sm leading-relaxed">
-            Seguimiento en <strong class="text-purple-800">tiempo real de tu pedido</strong> dentro del taller. Sabe exactamente en qué etapa está tu producto: diseño, impresión, planchado, costura o listo.
-          </p>
-          <div class="mt-5 flex items-center gap-2">
-            <div class="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></div>
-            <p class="text-xs font-nunito font-semibold text-orange-600">Actualizaciones en vivo</p>
-          </div>
-        </div>
-
-      </div>
+<!-- ══════════════════════════════════════════════════
+     PROCESS SECTION
+     ══════════════════════════════════════════════════ -->
+<section class="process section-padding" id="como-funciona" aria-label="Cómo funciona">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">⚙️ Proceso</span>
+      <h2 class="section-title">¿Cómo funciona?</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.65);">En solo 4 pasos tienes tu pedido personalizado listo para entrega.</p>
     </div>
-  </section>
 
-  <!-- ══════════════════════════════════════════
-       CÓMO FUNCIONA – LÍNEA DE TIEMPO
-  ══════════════════════════════════════════ -->
-  <section id="how" class="py-20 px-4 relative">
-    <div class="max-w-5xl mx-auto">
-
-      <!-- Header -->
-      <div class="text-center mb-16 reveal">
-        <p class="text-sm font-nunito font-semibold text-purple-400 uppercase tracking-widest mb-2">Proceso</p>
-        <h2 class="font-fredoka text-3xl sm:text-4xl lg:text-5xl font-semibold text-purple-900">
-          Cómo Funciona
-        </h2>
-        <p class="font-inter text-purple-600/80 mt-3 max-w-lg mx-auto">
-          De tu idea a un producto real en pocos pasos simples.
-        </p>
-      </div>
-
-      <!-- Desktop Timeline (horizontal) -->
-      <div class="hidden md:block">
-
-        <!-- Connector line -->
-        <div class="relative flex items-start justify-between gap-4 mb-0">
-          <div class="absolute top-8 left-[12%] right-[12%] h-0.5 timeline-line rounded-full"></div>
-
-          <!-- Step 1 -->
-          <div class="flex flex-col items-center text-center w-1/4 reveal">
-            <div class="step-circle w-16 h-16 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-2xl z-10 mb-4">
-              1
-            </div>
-            <div class="glass-card rounded-2xl p-4 w-full">
-              <div class="text-2xl mb-2">🎨</div>
-              <h4 class="font-fredoka font-semibold text-lg text-purple-900 mb-1">Sube tu Arte</h4>
-              <p class="font-inter text-xs text-purple-600/80 leading-relaxed">Carga tu diseño en alta calidad. Validamos la resolución al instante.</p>
-            </div>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="flex flex-col items-center text-center w-1/4 reveal" style="transition-delay:0.1s;">
-            <div class="step-circle w-16 h-16 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-2xl z-10 mb-4">
-              2
-            </div>
-            <div class="glass-card rounded-2xl p-4 w-full">
-              <div class="text-2xl mb-2">👁️</div>
-              <h4 class="font-fredoka font-semibold text-lg text-purple-900 mb-1">Revisa el Mockup</h4>
-              <p class="font-inter text-xs text-purple-600/80 leading-relaxed">Aprueba tu muestra digital antes de producir. Sin sorpresas.</p>
-            </div>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="flex flex-col items-center text-center w-1/4 reveal" style="transition-delay:0.2s;">
-            <div class="step-circle w-16 h-16 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-2xl z-10 mb-4">
-              3
-            </div>
-            <div class="glass-card rounded-2xl p-4 w-full">
-              <div class="text-2xl mb-2">📱</div>
-              <h4 class="font-fredoka font-semibold text-lg text-purple-900 mb-1">Pago Rápido</h4>
-              <p class="font-inter text-xs text-purple-600/80 leading-relaxed">Transfiere el <strong>50% de anticipo</strong> obligatorio de forma segura mediante código QR.</p>
-            </div>
-          </div>
-
-          <!-- Step 4 -->
-          <div class="flex flex-col items-center text-center w-1/4 reveal" style="transition-delay:0.3s;">
-            <div class="step-circle w-16 h-16 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-2xl z-10 mb-4">
-              4
-            </div>
-            <div class="glass-card rounded-2xl p-4 w-full">
-              <div class="text-2xl mb-2">📍</div>
-              <h4 class="font-fredoka font-semibold text-lg text-purple-900 mb-1">Monitorea</h4>
-              <p class="font-inter text-xs text-purple-600/80 leading-relaxed">Sigue los estados en vivo: Diseño → Impresión → Planchado → Costura → Listo 🎉</p>
-            </div>
-          </div>
-
+    <div class="steps-grid">
+      <div class="step-card reveal-scale">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Elige tu Artículo</h4>
+          <p>Explora nuestro catálogo y selecciona el artículo blanco que quieres personalizar: polera, taza, gorra o cojín.</p>
         </div>
       </div>
-
-      <!-- Mobile Timeline (vertical) -->
-      <div class="md:hidden space-y-6">
-
-        <!-- Step 1 -->
-        <div class="flex gap-4 items-start reveal">
-          <div class="flex flex-col items-center">
-            <div class="step-circle w-12 h-12 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-lg flex-shrink-0">1</div>
-            <div class="w-0.5 h-16 timeline-line mt-2"></div>
-          </div>
-          <div class="glass-card rounded-2xl p-4 flex-1">
-            <div class="flex items-center gap-2 mb-2"><span class="text-xl">🎨</span><h4 class="font-fredoka font-semibold text-purple-900">Sube tu Arte</h4></div>
-            <p class="font-inter text-sm text-purple-600/80">Carga tu diseño en alta calidad. Validamos la resolución al instante.</p>
-          </div>
+      <div class="step-card reveal-scale reveal-delay-2">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Sube tu Diseño</h4>
+          <p>Carga tu imagen en alta resolución (JPG, PNG). Nuestro equipo de diseño la revisará y optimizará para la sublimación.</p>
         </div>
-
-        <!-- Step 2 -->
-        <div class="flex gap-4 items-start reveal" style="transition-delay:0.1s;">
-          <div class="flex flex-col items-center">
-            <div class="step-circle w-12 h-12 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-lg flex-shrink-0">2</div>
-            <div class="w-0.5 h-16 timeline-line mt-2"></div>
-          </div>
-          <div class="glass-card rounded-2xl p-4 flex-1">
-            <div class="flex items-center gap-2 mb-2"><span class="text-xl">👁️</span><h4 class="font-fredoka font-semibold text-purple-900">Revisa el Mockup</h4></div>
-            <p class="font-inter text-sm text-purple-600/80">Aprueba tu muestra digital antes de producir. Sin sorpresas.</p>
-          </div>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="flex gap-4 items-start reveal" style="transition-delay:0.2s;">
-          <div class="flex flex-col items-center">
-            <div class="step-circle w-12 h-12 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-lg flex-shrink-0">3</div>
-            <div class="w-0.5 h-16 timeline-line mt-2"></div>
-          </div>
-          <div class="glass-card rounded-2xl p-4 flex-1">
-            <div class="flex items-center gap-2 mb-2"><span class="text-xl">📱</span><h4 class="font-fredoka font-semibold text-purple-900">Pago Rápido</h4></div>
-            <p class="font-inter text-sm text-purple-600/80">Transfiere el <strong>50% de anticipo</strong> obligatorio mediante código QR.</p>
-          </div>
-        </div>
-
-        <!-- Step 4 -->
-        <div class="flex gap-4 items-start reveal" style="transition-delay:0.3s;">
-          <div class="flex flex-col items-center">
-            <div class="step-circle w-12 h-12 rounded-full flex items-center justify-center text-white font-fredoka font-bold text-lg flex-shrink-0">4</div>
-          </div>
-          <div class="glass-card rounded-2xl p-4 flex-1">
-            <div class="flex items-center gap-2 mb-2"><span class="text-xl">📍</span><h4 class="font-fredoka font-semibold text-purple-900">Monitorea</h4></div>
-            <p class="font-inter text-sm text-purple-600/80">Diseño → Impresión → Planchado → Costura → Listo 🎉</p>
-          </div>
-        </div>
-
       </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════
-       CTA BANNER
-  ══════════════════════════════════════════ -->
-  <section class="py-16 px-4">
-    <div class="max-w-3xl mx-auto reveal">
-      <div class="glass-card rounded-3xl p-10 text-center relative overflow-hidden">
-        <!-- Decorative circles -->
-        <div class="absolute -top-8 -right-8 w-40 h-40 rounded-full opacity-30"
-             style="background:linear-gradient(135deg,#c4b5fd,#f9a8d4);"></div>
-        <div class="absolute -bottom-6 -left-6 w-28 h-28 rounded-full opacity-25"
-             style="background:linear-gradient(135deg,#fbc8b0,#f9a8d4);"></div>
-
-        <div class="relative z-10">
-          <div class="text-4xl mb-4">🚀</div>
-          <h2 class="font-fredoka text-3xl sm:text-4xl font-semibold text-purple-900 mb-3">
-            ¿Listo para comenzar?
-          </h2>
-          <p class="font-inter text-purple-700/80 mb-7 max-w-md mx-auto">
-            Únete a más de <strong class="text-purple-800">500 clientes</strong> que ya automatizan sus pedidos con Subli-Tech y ahorra tiempo valioso.
-          </p>
-          <a href="#" class="btn-cta text-white font-nunito font-bold text-lg px-10 py-4 rounded-full inline-block shadow-lg">
-            ✨ Empezar Gratis Ahora
-          </a>
+      <div class="step-card reveal-scale reveal-delay-4">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Confirma y Paga Anticipo</h4>
+          <p>Revisa tu pedido, realiza el pago del 50% de anticipo y nosotros comenzamos la producción de inmediato.</p>
+        </div>
+      </div>
+      <div class="step-card reveal-scale reveal-delay-1">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Seguimiento en Tiempo Real</h4>
+          <p>Rastrea el estado de tu pedido en 6 etapas: desde el diseño hasta la costura y listo para entrega.</p>
+        </div>
+      </div>
+      <div class="step-card reveal-scale reveal-delay-3">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h4>Retiro o Despacho</h4>
+          <p>Retira en nuestro local o te despachamos a domicilio. Plazo promedio de entrega: 3 días hábiles.</p>
+        </div>
+      </div>
+      <div class="step-card reveal-scale reveal-delay-5">
+        <div class="step-num">06</div>
+        <div class="step-content">
+          <h4>¡Disfruta tu Pedido!</h4>
+          <p>Colores de alta fidelidad que no decoloran ni con el lavado. Garantía de calidad total en cada artículo.</p>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ══════════════════════════════════════════
-       FOOTER
-  ══════════════════════════════════════════ -->
-  <footer class="mt-8 px-4 pb-0">
-    <div class="rounded-t-3xl px-8 py-12" style="background:linear-gradient(135deg,#3b1f6e 0%,#4c1d95 40%,#6b21a8 100%);">
+  </div>
+</section>
 
-      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
 
-        <!-- Brand -->
-        <div>
-          <div class="flex items-center gap-2 mb-4">
-            <div class="w-9 h-9 rounded-full btn-cta flex items-center justify-center shadow-md">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
-                  d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
-              </svg>
-            </div>
-            <span class="font-fredoka text-xl font-semibold text-white">Subli-Tech</span>
-          </div>
-          <p class="font-inter text-purple-200 text-sm leading-relaxed max-w-xs">
-            Automatizando la personalización de productos con tecnología de vanguardia.
-          </p>
-          <!-- Metric -->
-          <div class="mt-4 inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2">
-            <span class="text-green-400 font-nunito font-bold text-sm">📈 +25%</span>
-            <span class="text-purple-200 font-inter text-xs">Optimizando el tiempo de respuesta</span>
+<!-- ══════════════════════════════════════════════════
+     WHY US
+     ══════════════════════════════════════════════════ -->
+<section class="why-us section-padding section-mesh" id="por-que" aria-label="Por qué elegirnos">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">⭐ Ventajas</span>
+      <h2 class="section-title">¿Por qué elegir <span class="text-gradient">Subli-Tech</span>?</h2>
+      <p class="section-sub">Calidad, velocidad y atención personalizada en cada pedido.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card reveal-left">
+        <div class="feature-icon purple">🖨️</div>
+        <h4 class="feature-title">Alta Resolución</h4>
+        <p class="feature-desc">Imprimimos a 1440 DPI con tintas de sublimación de grado profesional para resultados fotográficos.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon cta">⚡</div>
+        <h4 class="feature-title">Entrega Rápida</h4>
+        <p class="feature-desc">Proceso de producción ágil con 6 etapas de control de calidad. Tu pedido listo en 3 días hábiles.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon green">🔒</div>
+        <h4 class="feature-title">Pago Seguro</h4>
+        <p class="feature-desc">Solo el 50% de anticipo al inicio. El saldo se paga al momento de retirar tu pedido terminado.</p>
+      </div>
+      <div class="feature-card reveal-right reveal-delay-2">
+        <div class="feature-icon yellow">🎨</div>
+        <h4 class="feature-title">Diseño Asesorado</h4>
+        <p class="feature-desc">Nuestro equipo revisa y optimiza tu archivo de diseño sin costo adicional. Calidad garantizada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     TESTIMONIALS
+     ══════════════════════════════════════════════════ -->
+<section class="testimonials section-padding" aria-label="Testimonios de clientes">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">💬 Testimonios</span>
+      <h2 class="section-title">Lo que dicen <span class="text-gradient">nuestros clientes</span></h2>
+      <p class="section-sub">Más de 850 clientes satisfechos respaldan nuestra calidad.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Pedí 10 poleras para mi empresa y quedaron perfectas. Los colores son increíblemente vívidos y la entrega fue en 2 días. ¡100% recomendado!"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:rgba(122,0,255,0.12);">👩‍💼</div>
+          <div class="author-info">
+            <h5>María Fernández</h5>
+            <p>Gerente de RR.HH. — LogisCargo</p>
           </div>
         </div>
-
-        <!-- Links -->
-        <div>
-          <h4 class="font-fredoka text-white font-semibold text-lg mb-4">Plataforma</h4>
-          <ul class="space-y-2 font-inter text-sm text-purple-300">
-            <li><a href="#" class="hover:text-white transition-colors">Personalizador Visual</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Aprobación de Mockups</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Seguimiento de Pedidos</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Pago por QR</a></li>
-          </ul>
-        </div>
-
-        <!-- Products & Contact -->
-        <div>
-          <h4 class="font-fredoka text-white font-semibold text-lg mb-4">Productos</h4>
-          <ul class="space-y-2 font-inter text-sm text-purple-300 mb-5">
-            <li>👕 Poleras</li>
-            <li>☕ Tazas</li>
-            <li>🧢 Gorras</li>
-          </ul>
-          <div class="flex gap-3">
-            <!-- Social icons (placeholder) -->
-            <a href="#" class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/30 transition-colors text-white text-xs font-bold">IG</a>
-            <a href="#" class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/30 transition-colors text-white text-xs font-bold">WA</a>
-            <a href="#" class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/30 transition-colors text-white text-xs font-bold">FB</a>
-          </div>
-        </div>
-
       </div>
 
-      <!-- Divider -->
-      <div class="border-t border-white/15 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <p class="font-inter text-purple-300 text-sm text-center">
-          Optimizando el tiempo de respuesta en un <strong class="text-purple-100">25%</strong> con cada pedido automatizado.
-        </p>
-        <p class="font-inter text-purple-400 text-xs text-center">
-          © 2026 Subli-Tech. Todos los derechos reservados.
-        </p>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Las tazas mágicas para el matrimonio de mi hermana fueron un éxito total. Todos los invitados quedaron fascinados con el efecto. ¡Gracias Subli-Tech!"</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:rgba(255,0,127,0.10);">🎉</div>
+          <div class="author-info">
+            <h5>Carlos Mendoza</h5>
+            <p>Cliente particular — Cochabamba</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Las gorras para nuestro equipo de fútbol quedaron espectaculares. El diseño del escudo quedó perfecto. Precio justo y excelente calidad."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:rgba(245,158,11,0.12);">⚽</div>
+          <div class="author-info">
+            <h5>Rodrigo Mamani</h5>
+            <p>Capitán Club Deportivo Bolívar</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     CTA BANNER
+     ══════════════════════════════════════════════════ -->
+<section class="cta-banner" aria-label="Llamado a la acción">
+  <div class="container" style="position:relative;z-index:1;">
+    <h2>¿Listo para crear algo <em style="font-style:normal;">increíble</em>?</h2>
+    <p>Comienza tu pedido ahora y recíbelo en 3 días hábiles.</p>
+    <a href="#catalogo" class="btn-cta-white" id="cta-banner-btn">
+      🎨 Empezar a Personalizar →
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════════════ -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <img src="img/logo.png" alt="Subli-Tech" style="height:45px;width:auto;object-fit:contain;" />
+        </a>
+        <p>Especialistas en sublimación de alta calidad. Tu diseño, nuestros colores, tu satisfacción garantizada.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Productos</h4>
+        <ul class="footer-links">
+          <li><a href="producto.html?id=1" id="footer-polera-corta">→ Polera Manga Corta</a></li>
+          <li><a href="producto.html?id=2" id="footer-polera-larga">→ Polera Manga Larga</a></li>
+          <li><a href="producto.html?id=3" id="footer-taza">→ Taza Cerámica</a></li>
+          <li><a href="producto.html?id=4" id="footer-taza-magica">→ Taza Mágica</a></li>
+          <li><a href="producto.html?id=5" id="footer-gorra">→ Gorra Sublimable</a></li>
+          <li><a href="producto.html?id=6" id="footer-cojin">→ Cojín 40×40</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul class="footer-links">
+          <li><a href="#como-funciona" id="footer-proceso">→ ¿Cómo funciona?</a></li>
+          <li><a href="#por-que"       id="footer-porque">→ ¿Por qué nosotros?</a></li>
+          <li><a href="login.html"     id="footer-login">→ Iniciar Sesión</a></li>
+          <li><a href="carrito.html"   id="footer-carrito">→ Mi Carrito</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <div class="footer-contact-item">
+          <span>📍</span> Cochabamba, Bolivia
+        </div>
+        <div class="footer-contact-item">
+          <span>📱</span> +591 4 456-7890
+        </div>
+        <div class="footer-contact-item">
+          <span>✉️</span> contacto@sublitech.bo
+        </div>
+        <div class="footer-contact-item">
+          <span>🕐</span> Lun–Vie 9:00 – 18:00
+        </div>
       </div>
 
     </div>
-  </footer>
 
-  <!-- ══════════════════════════════════════════
-       SCROLL REVEAL SCRIPT
-  ══════════════════════════════════════════ -->
-  <script>
-    // Intersection Observer for reveal animations
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(el => {
-        if (el.isIntersecting) {
-          el.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.12 });
+    <hr class="footer-divider" />
 
-    revealEls.forEach(el => observer.observe(el));
+    <div class="footer-bottom">
+      <p>© 2026 <strong>Subli-Tech</strong> — Todos los derechos reservados.</p>
+      <p>Desarrollado con ❤️ para artesanos digitales.</p>
+    </div>
+  </div>
+</footer>
 
-    // Trigger hero elements immediately
-    document.querySelectorAll('#hero-copy, #hero-illo').forEach(el => {
-      setTimeout(() => el.classList.add('visible'), 100);
-    });
-  </script>
+<!-- Toast container -->
+<div class="toast-container" id="toast-container" aria-live="polite"></div>
 
+<script src="js/datos.js"></script>
+<script src="js/main.js"></script>
+
+<!-- ════════════════════════════════════════════════════
+     CATÁLOGO DINÁMICO — inyecta tarjetas desde MySQL
+     Escucha catalogo:cargado (disparado por datos.js)
+     ════════════════════════════════════════════════════ -->
+<script>
+(function() {
+  const BADGE_COLORS = {
+    polera:   '#7A00FF', taza:  '#F59E0B', gorra: '#3B82F6',
+    cojin:    '#EC4899', bolso: '#10B981', conjunto: '#F97316',
+    bandera:  '#EF4444', otro:  '#6B7280',
+  };
+
+  function buildCard(p, index) {
+    const delay   = index < 6 ? ` reveal-delay-${index}` : '';
+    const badgeColor = BADGE_COLORS[p.categoria] || '#7A00FF';
+    const img     = p.imagen || 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=220&fit=crop&auto=format';
+    const precio  = 'Bs. ' + Number(p.precio_base).toLocaleString('es-BO', {maximumFractionDigits:0});
+    const safe    = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+    return `
+<article class="product-card reveal${delay}" data-category="${safe(p.categoria)}" data-id="${p.id}" role="listitem">
+  <div class="product-img-wrap" style="padding:0;">
+    <img src="${safe(img)}" alt="${safe(p.nombre)}" style="width:100%;height:100%;object-fit:cover;" loading="lazy"/>
+    <span class="product-stock-badge" style="background:rgba(16,185,129,0.15);color:#059669;border:1px solid rgba(16,185,129,0.3);">✓ Stock disponible</span>
+  </div>
+  <div class="product-body">
+    <div class="product-meta">
+      <span class="badge" style="background:${badgeColor}20;color:${badgeColor};border:1px solid ${badgeColor}30;">${safe(p.categoriaLabel)}</span>
+    </div>
+    <h3 class="product-name">${safe(p.nombre)}</h3>
+    <p class="product-desc">${safe(p.descripcion ? p.descripcion.slice(0,90) + (p.descripcion.length>90?'…':'') : '')}</p>
+    <div class="product-price-row">
+      <div>
+        <p class="price-label">Precio base desde</p>
+        <p class="price-value">${precio}</p>
+      </div>
+    </div>
+    <div class="product-actions">
+      <a href="producto.html?id=${p.id}" class="btn btn-outline btn-sm" id="ver-prod-${p.id}">Ver detalles</a>
+      <a href="producto.html?id=${p.id}" class="btn btn-cta btn-sm"    id="personalizar-prod-${p.id}">🎨 Personalizar</a>
+    </div>
+  </div>
+</article>`;
+  }
+
+  function renderCatalogo(productos) {
+    const grid    = document.getElementById('products-grid');
+    const loading = document.getElementById('catalog-loading');
+    if (!grid) return;
+    if (loading) loading.remove();
+
+    if (!productos.length) {
+      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#64748B;">No hay productos disponibles.</p>';
+      return;
+    }
+
+    grid.innerHTML = productos.map((p, i) => buildCard(p, i)).join('');
+
+    /* Re-ejecutar animaciones reveal sobre las nuevas tarjetas */
+    if (typeof initReveal  === 'function') initReveal();
+    if (typeof initCardTilt=== 'function') initCardTilt();
+  }
+
+  /* Escuchar el evento que dispara datos.js cuando MySQL responde */
+  window.addEventListener('catalogo:cargado', e => {
+    renderCatalogo(e.detail || window.SUBLITECH_PRODUCTS || []);
+  });
+
+  /* Fallback: si el evento ya ocurrió antes de que este script se ejecute */
+  if (window._catalogoCargado && window.SUBLITECH_PRODUCTS && window.SUBLITECH_PRODUCTS.length) {
+    renderCatalogo(window.SUBLITECH_PRODUCTS);
+  }
+})();
+</script>
 </body>
 </html>
